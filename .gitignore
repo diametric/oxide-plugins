@@ -1,0 +1,10 @@
+
+config/
+
+data/
+
+lang/
+
+logs/
+
+oxide\.config\.json
