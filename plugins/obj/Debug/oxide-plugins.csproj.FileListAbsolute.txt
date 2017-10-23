@@ -1,0 +1,2 @@
+C:\Users\Desktop\Development\.NET\Rust\Server\rustds\oxide\plugins\obj\Debug\oxide-plugins.csprojResolveAssemblyReference.cache
+C:\Users\Desktop\Development\.NET\Rust\Server\rustds\oxide\plugins\obj\Debug\oxide-plugins.csproj.CoreCompileInputs.cache

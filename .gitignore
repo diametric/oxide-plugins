@@ -8,3 +8,5 @@ lang/
 logs/
 
 oxide\.config\.json
+
+plugins/GroupLimits\.cs

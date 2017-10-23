@@ -11,7 +11,7 @@ namespace Oxide.Plugins
     [Info("Loadouts", "Jacob", "1.0.0")]
     class Loadouts : RustPlugin
     {
-        #region Chat Command
+        #region Command
 
         [ChatCommand("loadout")]
         private void LoadoutCommand(BasePlayer player, string command, string[] args)

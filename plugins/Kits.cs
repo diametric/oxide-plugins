@@ -1,18 +1,18 @@
-// #define DEBUG
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-
 using Oxide.Core;
 using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
 using UnityEngine;
-
 using Oxide.Plugins.KitsExtensions;
+
+/*using Anchor = Oxide.Plugins.KitsUI.Anchor;
+using RGBA = Oxide.Plugins.KitsUI.RGBA;
+using UI = Oxide.Plugins.KitsUI.UI;*/
 
 namespace Oxide.Plugins
 {
@@ -308,7 +308,7 @@ namespace Oxide.Plugins
 
         #endregion
 
-        #region Data Storage
+        #region Data
 
         public class Data
         {
@@ -748,3 +748,108 @@ namespace Oxide.Plugins
         }
     }
 }
+
+/*namespace Oxide.Plugins.KitsUI
+{
+    public class Anchor
+    {
+        public float X { get; }
+        public float Y { get; }
+
+        public Anchor(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public string Format() => $"{X} {Y}";
+    }
+
+    public class RGBA
+    {
+        public float R { get; }
+        public float B { get; }
+        public float G { get; }
+        public float A { get; }
+
+        public RGBA(float r, float g, float b, float a)
+        {
+            R = r;
+            G = g;
+            B = b;
+            A = a;
+        }
+
+        public string Format => $"{R / 255} {G / 255} {B / 255} {A}";
+    }
+
+    public class UI
+    {
+        public CuiElementContainer Container(string name, RGBA color, Anchor min, Anchor max, string parent = "Overlay")
+        {
+            var container = new CuiElementContainer
+            {
+                new CuiElement
+                {
+                    Name = name,
+                    Parent = parent,
+                    Components =
+                    {
+                        new CuiImageComponent
+                        {
+                            Color = color.Format
+                        },
+                        new CuiRectTransformComponent
+                        {
+                            AnchorMin = min.Format(),
+                            AnchorMax = max.Format()
+                        }
+                    }
+                }
+            };
+
+            return container;
+        }
+
+        public void Panel(ref CuiElementContainer container, string name, RGBA color, Anchor min, Anchor max, string parent, bool cursor = false)
+        {
+            container.Add(new CuiPanel
+            {
+                CursorEnabled = cursor,
+                Image =
+                {
+                    Color = color.Format
+                },
+                RectTransform =
+                {
+                    AnchorMin = min.Format(),
+                    AnchorMax = max.Format()
+                }         
+            }, parent, name);
+        }
+
+        public void Text(ref CuiElementContainer container, string name, RGBA color, Anchor min, Anchor max, TextAnchor anchor, int fontSize, string text, string parent)
+        {
+            container.Add(new CuiElement
+            {
+                Name = name,
+                Parent = parent,
+                Components =
+                {
+                    new CuiTextComponent
+                    {
+                        Color = color.Format,
+                        Align = anchor,
+                        FontSize = fontSize,
+                        Text = text
+                    },
+                    new CuiRectTransformComponent
+                    {
+                        AnchorMin = min.Format(),
+                        AnchorMax = max.Format()
+                    }
+                }
+            });
+        }
+    }
+}*/
