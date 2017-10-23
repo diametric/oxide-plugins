@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Oxide.Core;
 using UnityEngine;
-
 using Oxide.Plugins.BlueprintManagerExtensions;
 
 namespace Oxide.Plugins
@@ -17,47 +15,7 @@ namespace Oxide.Plugins
          * Full credit to k1lly0u for the code from "NoWorkbench."
          */
 
-        public static BlueprintManager Instance;
-        private Configuration _configuration;
-
-        private TriggerWorkbench workbenchTrigger;
-        private Workbench workbench;
-
-        #region Configuration 
-
-        private class Configuration
-        {
-            public List<object> DefaultBlueprints = new List<object>();
-
-            public Configuration()
-            {
-                GetConfig(ref DefaultBlueprints, "Settings", "Default blueprints");
-
-                Instance.SaveConfig();
-            }
-
-            private void GetConfig<T>(ref T variable, params string[] path)
-            {
-                if (path.Length == 0)
-                    return;
-
-                if (Instance.Config.Get(path) == null)
-                {
-                    SetConfig(ref variable, path);
-                    Instance.PrintWarning($"Added field to config: {string.Join("/", path)}");
-                }
-
-                variable = (T)Convert.ChangeType(Instance.Config.Get(path), typeof(T));
-            }
-
-            private void SetConfig<T>(ref T variable, params string[] path) => Instance.Config.Set(path.Concat(new object[] { variable }).ToArray());
-        }
-
-        protected override void LoadDefaultConfig() => PrintWarning("Generating new config file...");
-
-        #endregion
-
-        #region Commands
+        #region Command
 
         [ChatCommand("blueprint")]
         private void BlueprintCommand(BasePlayer player, string command, string[] args)
@@ -113,6 +71,50 @@ namespace Oxide.Plugins
                     break;
             }
         }
+
+        #endregion
+
+        #region Configuration 
+
+        private class Configuration
+        {
+            public List<object> DefaultBlueprints = new List<object>();
+
+            public Configuration()
+            {
+                GetConfig(ref DefaultBlueprints, "Settings", "Default blueprints");
+
+                Instance.SaveConfig();
+            }
+
+            private void GetConfig<T>(ref T variable, params string[] path)
+            {
+                if (path.Length == 0)
+                    return;
+
+                if (Instance.Config.Get(path) == null)
+                {
+                    SetConfig(ref variable, path);
+                    Instance.PrintWarning($"Added field to config: {string.Join("/", path)}");
+                }
+
+                variable = (T)Convert.ChangeType(Instance.Config.Get(path), typeof(T));
+            }
+
+            private void SetConfig<T>(ref T variable, params string[] path) => Instance.Config.Set(path.Concat(new object[] { variable }).ToArray());
+        }
+
+        protected override void LoadDefaultConfig() => PrintWarning("Generating new config file...");
+
+        #endregion
+
+        #region Fields
+
+        public static BlueprintManager Instance;
+        private Configuration _configuration;
+
+        private TriggerWorkbench workbenchTrigger;
+        private Workbench workbench;
 
         #endregion
 

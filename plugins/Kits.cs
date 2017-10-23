@@ -1,23 +1,18 @@
-// #define DEBUG
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-
 using Oxide.Core;
 using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
-using Oxide.Game.Rust.Cui;
 using UnityEngine;
-
 using Oxide.Plugins.KitsExtensions;
 
-using Anchor = Oxide.Plugins.KitsUI.Anchor;
+/*using Anchor = Oxide.Plugins.KitsUI.Anchor;
 using RGBA = Oxide.Plugins.KitsUI.RGBA;
-using UI = Oxide.Plugins.KitsUI.UI;
+using UI = Oxide.Plugins.KitsUI.UI;*/
 
 namespace Oxide.Plugins
 {
@@ -313,7 +308,7 @@ namespace Oxide.Plugins
 
         #endregion
 
-        #region Data Storage
+        #region Data
 
         public class Data
         {
@@ -754,7 +749,7 @@ namespace Oxide.Plugins
     }
 }
 
-namespace Oxide.Plugins.KitsUI
+/*namespace Oxide.Plugins.KitsUI
 {
     public class Anchor
     {
@@ -857,4 +852,4 @@ namespace Oxide.Plugins.KitsUI
             });
         }
     }
-}
+}*/

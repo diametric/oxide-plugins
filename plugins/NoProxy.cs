@@ -1,10 +1,7 @@
-﻿// #define DEBUG
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-
 using Oxide.Core.Plugins;
 
 namespace Oxide.Plugins
@@ -12,28 +9,6 @@ namespace Oxide.Plugins
     [Info("No Proxy", "Jacob", "1.0.0")]
     internal class NoProxy : RustPlugin
     {
-        private static NoProxy instance;
-
-        private Configuration configuration;
-
-        [PluginReference] private Plugin Slack;
-
-        #region Oxide Hooks
-
-        private void OnServerInitialized()
-        {
-            instance = this;
-            configuration = new Configuration();
-            permission.RegisterPermission("noproxy.exempt", this);
-
-            foreach (var player in BasePlayer.activePlayerList.Where(x => !permission.UserHasPermission(x.UserIDString, "noproxy.exempt")))
-                CheckIP(player);
-        }
-
-        private void OnPlayerInit(BasePlayer player) => CheckIP(player);
-
-        #endregion
-
         #region Configuration
 
         private class Configuration
@@ -74,6 +49,16 @@ namespace Oxide.Plugins
 
         #endregion
 
+        #region Fields
+
+        private static NoProxy instance;
+
+        private Configuration configuration;
+
+        [PluginReference] private Plugin Slack;
+
+        #endregion
+
         #region Localization 
 
         protected override void LoadDefaultMessages() => lang.RegisterMessages(new Dictionary<string, string>
@@ -84,7 +69,7 @@ namespace Oxide.Plugins
 
         #endregion
 
-        #region Helpers
+        #region Methods
 
         private void CheckIP(BasePlayer player) => webrequest.EnqueueGet($"http://check.getipintel.net/check.php?ip={FormatIP(player.Connection.ipaddress)}&contact={configuration.Contact}&format=json&flags=m",
             (code, response) =>
@@ -117,5 +102,22 @@ namespace Oxide.Plugins
         private void Log(string message, params object[] args) => LogToFile("", string.Format($"[{DateTime.UtcNow}] {message}", args), this, false);
 
         #endregion
+
+        #region Oxide Hooks
+
+        private void OnServerInitialized()
+        {
+            instance = this;
+            configuration = new Configuration();
+            permission.RegisterPermission("noproxy.exempt", this);
+
+            foreach (var player in BasePlayer.activePlayerList.Where(x => !permission.UserHasPermission(x.UserIDString, "noproxy.exempt")))
+                CheckIP(player);
+        }
+
+        private void OnPlayerInit(BasePlayer player) => CheckIP(player);
+
+        #endregion
+
     }
 }
